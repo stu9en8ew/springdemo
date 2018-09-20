@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Studenti</title>
+</head>
+<body>
+	<h5>Tutti gli studenti</h5>
+	<table class="table table-dark" cellpadding="10px">
+		<thead>
+			<tr>
+				<th scope="col">Nome</th>
+				<th scope="col">Cognome</th>
+				<th scope="col">Eta</th>
+				<th scope="col">Indirizzo</th>
+				<th scope="col">Codice Fiscale</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="studente:${studenti}">
+				<td><span th:text="${studente.nome}"></span></td>
+				<td><span th:text="${studente.cognome}"></span></td>
+				<td><span th:text="${studente.eta}"></span></td>
+				<td><span th:text="${studente.indirizzo}"></span></td>
+				<td><span th:text="${studente.codiceFiscale}"></span></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
