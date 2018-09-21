@@ -13,42 +13,45 @@
 <body>
 
 <div class="card">
-    <h4 class="card-title">Studente | <a th:href="@{'/studente/listar/'}" title="Listar">Listar</a></h4>
+    <h5 class="card-title">Studente</h5>
     
    	<div class="card-body">
-	    <form action="#" th:action="@{/studente/salvar}" th:object="${studente}" method="post">
+	    <form action="#" th:action="@{/studente/atualizar}" th:object="${studente}" method="post">
 	    	<div class="form-group row">
 			  <label for="nome" class="col-2 col-form-label">Nome</label>
 			  <div class="col-10">
-			    <input class="form-control" type="text" id="nome" th:field="*{nome}">
+			    <input class="form-control" type="text" id="nome" th:field="${studente.nome}">
 			  </div>
 			</div>
 			<div class="form-group row">
 			  <label for="cognome" class="col-2 col-form-label">Cognome</label>
 			  <div class="col-10">
-			    <input class="form-control" type="text" id="cognome" th:field="*{cognome}">
+			    <input class="form-control" type="text" id="cognome" th:field="${studente.cognome}">
 			  </div>
 			</div>
 			<div class="form-group row">
 			  <label for="eta" class="col-2 col-form-label">Eta</label>
 			  <div class="col-10">
-			    <input class="form-control" type="text" id="eta" th:field="*{eta}">
+			    <input class="form-control" type="text" id="eta" th:field="${studente.eta}">
 			  </div>
 			</div>
 			<div class="form-group row">
 			  <label for="indirizzo" class="col-2 col-form-label">Indirizzo</label>
 			  <div class="col-10">
-			    <input class="form-control" type="text" id="indirizzo" th:field="*{indirizzo}">
+			    <input class="form-control" type="text" id="indirizzo" th:field="${studente.indirizzo}">
 			  </div>
 			</div>
 			<div class="form-group row">
 			  <label for="codicefiscale" class="col-2 col-form-label">Codice Fiscale</label>
 			  <div class="col-10">
-			    <input class="form-control" type="text" id="codiceFiscale" th:field="*{codiceFiscale}">
+			    <input class="form-control" type="text" id="codiceFiscale" th:field="${studente.codiceFiscale}">
 			  </div>
 			</div>
 			<div class="text-center">
-				<input type="submit" class="btn btn-primary" value="Salvar"/>
+				<input type="submit" class="btn btn-primary" value="Atualizar"/>
+			</div>
+			<div class="text-center">
+				<input type="hidden" id="id" th:field="${studente.id}"/>
 			</div>
 	    </form>
     </div>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,24 +18,33 @@ public class StudenteRepository {
 
 	public void save(Studente studente) {
 		
-		Session session = sessionFactory.openSession();
-		session.save(studente);
-		session.close();
+		try(Session session = sessionFactory.openSession()){
+			Transaction transaction = session.beginTransaction();
+			session.save(studente);
+			transaction.commit();
+		}
+		
 	}
 	
 	public void update(Studente studente) {
-		
-		Session session = sessionFactory.openSession();
-		session.merge(studente);
-		session.close();
+				
+		try(Session session = sessionFactory.openSession()){
+			Transaction transaction = session.beginTransaction();
+			session.merge(studente);
+			transaction.commit();
+		}
+
 	}
 	
 	public void delete(Integer id){
 		
-		Session session = sessionFactory.openSession();		
-		Studente studente = session.load(Studente.class, id);
-		session.delete(studente);
-		session.close();
+		try(Session session = sessionFactory.openSession()){
+			Transaction transaction = session.beginTransaction();
+			Studente studente = session.load(Studente.class, id);
+			session.delete(studente);
+			transaction.commit();
+		}
+		
 	}
 	
 	public List<Studente> list() {
@@ -47,7 +57,9 @@ public class StudenteRepository {
 		//return studenti;
 		
 		try (Session session = sessionFactory.openSession()) {
+			Transaction transaction = session.beginTransaction();
 			List<Studente> studenti = session.createNamedQuery("tuttiglistudenti", Studente.class).getResultList();
+			transaction.commit();
 			return studenti;
 		}
 				
@@ -56,12 +68,21 @@ public class StudenteRepository {
 	public Studente findOne(String nome) {
 		
 		try (Session session = sessionFactory.openSession()) {
-			Studente studente = session.createQuery("from Studente where nome = 1?", Studente.class).setParameter(1, nome).getSingleResult();
+			Transaction transaction = session.beginTransaction();
+			Studente studente = session.createQuery("from Studente where nome = ?1", Studente.class).setParameter(1, nome).getSingleResult();
+			transaction.commit();
 			return studente;
 		}
 
-		
+	}
 
+	public Studente findById(Integer id) {
+		
+		try(Session session = sessionFactory.openSession()){
+			Studente studente = session.createQuery("from Studente where id = ?1", Studente.class).setParameter(1, id).getSingleResult();
+			return studente;
+		}
+		
 	}
 	
 }

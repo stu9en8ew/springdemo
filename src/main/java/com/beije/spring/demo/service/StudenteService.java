@@ -33,5 +33,10 @@ public class StudenteService {
 	public Studente findOne(String nome) {
 		return studenteRepository.findOne(nome);
 	}
+
+	public Studente findById(Integer id) {
+		return studenteRepository.findById(id);
+		
+	}
 	
 }
